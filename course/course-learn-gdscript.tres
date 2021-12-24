@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=10 format=2]
+[gd_resource type="Resource" load_steps=11 format=2]
 
 [ext_resource path="res://course/lesson-4-drawing-a-rectangle/lesson.tres" type="Resource" id=1]
 [ext_resource path="res://resources/Course.gd" type="Script" id=2]
@@ -9,8 +9,9 @@
 [ext_resource path="res://course/lesson-8-defining-variables/lesson.tres" type="Resource" id=7]
 [ext_resource path="res://course/lesson-6-multiple-function-parameters/lesson.tres" type="Resource" id=8]
 [ext_resource path="res://course/lesson-1-what-code-is-like/lesson.tres" type="Resource" id=9]
+[ext_resource path="res://course/lesson-10-the-game-loop/lesson.tres" type="Resource" id=10]
 
 [resource]
 script = ExtResource( 2 )
 title = "Learn GDScript From Zero"
-lessons = [ ExtResource( 9 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 7 ) ]
+lessons = [ ExtResource( 9 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 10 ) ]
