@@ -137,7 +137,7 @@ func _navigate_to() -> void:
 	_outliner_button.show()
 	_screen_container.show()
 	# warning-ignore:unsafe_method_access
-	screen.setup(target)
+	screen.setup(target, course)
 
 	# warning-ignore:unsafe_property_access
 	# warning-ignore:unsafe_property_access
@@ -201,10 +201,7 @@ func _on_lesson_completed(lesson: Lesson) -> void:
 
 func _on_course_completed() -> void:
 	Events.emit_signal("course_completed", course)
-
-	# TODO: Add a special screen at the end of the course.
-	# For now it should also probably be a "thank you for participating in beta" screen.
-	print("You reached the end of the course!")
+	queue_free()
 
 
 # Transitions a screen in.
