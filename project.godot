@@ -40,6 +40,11 @@ _global_script_classes=[ {
 "path": "res://resources/Course.gd"
 }, {
 "base": "Resource",
+"class": "CourseProgress",
+"language": "GDScript",
+"path": "res://resources/CourseProgress.gd"
+}, {
+"base": "Resource",
 "class": "Documentation",
 "language": "GDScript",
 "path": "res://resources/Documentation.gd"
@@ -88,6 +93,11 @@ _global_script_classes=[ {
 "class": "LessonDonePopup",
 "language": "GDScript",
 "path": "res://ui/components/popups/LessonDonePopup.gd"
+}, {
+"base": "Resource",
+"class": "LessonProgress",
+"language": "GDScript",
+"path": "res://resources/LessonProgress.gd"
 }, {
 "base": "PanelContainer",
 "class": "OutputConsole",
@@ -199,6 +209,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdscript-slice-exporter/collections/SlicesUtil.gd"
 }, {
+"base": "PanelContainer",
+"class": "UIBaseQuiz",
+"language": "GDScript",
+"path": "res://ui/UIBaseQuiz.gd"
+}, {
 "base": "Control",
 "class": "UIContentBlock",
 "language": "GDScript",
@@ -219,12 +234,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/UIPracticeButton.gd"
 }, {
-"base": "PanelContainer",
+"base": "UIBaseQuiz",
 "class": "UIQuizChoice",
 "language": "GDScript",
 "path": "res://ui/UIQuizChoice.gd"
 }, {
-"base": "PanelContainer",
+"base": "UIBaseQuiz",
 "class": "UIQuizInputField",
 "language": "GDScript",
 "path": "res://ui/UIQuizInputField.gd"
@@ -241,6 +256,7 @@ _global_script_class_icons={
 "CodeRefList": "",
 "ContentBlock": "",
 "Course": "",
+"CourseProgress": "",
 "Documentation": "",
 "DrawingTurtle": "",
 "ErrorOverlayPopup": "",
@@ -251,6 +267,7 @@ _global_script_class_icons={
 "LanguageServerError": "",
 "Lesson": "",
 "LessonDonePopup": "",
+"LessonProgress": "",
 "OutputConsole": "",
 "Practice": "",
 "PracticeHint": "",
@@ -273,6 +290,7 @@ _global_script_class_icons={
 "SliceEditorOverlay": "",
 "SliceProperties": "",
 "SlicesUtils": "",
+"UIBaseQuiz": "",
 "UIContentBlock": "",
 "UILesson": "",
 "UIPractice": "",

@@ -7,8 +7,6 @@ const LessonDonePopupScene := preload("components/popups/LessonDonePopup.tscn")
 
 export var test_practice: Resource
 
-var progress := 0.0 setget set_progress
-
 var _script_slice: SliceProperties
 var _tester: PracticeTester
 # If `true`, the text changed but was not saved.
@@ -104,13 +102,6 @@ func setup(practice: Practice) -> void:
 	_game_viewport.use_scene()
 
 
-func set_progress(new_progress: float) -> void:
-	progress = new_progress
-	if not is_inside_tree():
-		yield(self, "ready")
-	_info_panel.progress_bar.value = progress
-
-
 func _on_run_button_pressed() -> void:
 	_output_console.clear_messages()
 
@@ -162,13 +153,13 @@ func _on_run_button_pressed() -> void:
 func _toggle_distraction_free_mode() -> void:
 	_is_left_panel_open = not _is_left_panel_open
 	_tween.stop_all()
-	var duration := 0.3
+	var duration := 0.5
 	if _is_left_panel_open:
-		_tween.interpolate_property(_info_panel_control, "rect_min_size:x", _info_panel_control.rect_min_size.x, _info_panel_start_width, duration)
+		_tween.interpolate_property(_info_panel_control, "rect_min_size:x", _info_panel_control.rect_min_size.x, _info_panel_start_width, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 		_tween.interpolate_property(_info_panel_control, "modulate:a", _info_panel_control.modulate.a, 1.0, duration)
 	else:
-		_tween.interpolate_property(_info_panel_control, "rect_min_size:x", _info_panel_control.rect_min_size.x, 0.0, duration)
-		_tween.interpolate_property(_info_panel_control, "modulate:a", _info_panel_control.modulate.a, 0.0, duration)
+		_tween.interpolate_property(_info_panel_control, "rect_min_size:x", _info_panel_control.rect_min_size.x, 0.0, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+		_tween.interpolate_property(_info_panel_control, "modulate:a", _info_panel_control.modulate.a, 0.0, duration - 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.15)
 	_tween.start()
 
 	_code_editor.set_distraction_free_state(not _is_left_panel_open)
