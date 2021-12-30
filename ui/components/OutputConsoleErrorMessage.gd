@@ -47,19 +47,19 @@ func _update_visuals() -> void:
 	else:
 		_external_label.hide()
 		_file_name_label.text = origin_file
-		_location_label.text = "%d:%d" % [origin_line + 1, origin_char]
+		_location_label.text = "line %d, column %d" % [origin_line + 1, origin_char]
 		_location_row.show()
 	
 	match message_severity:
-		LiveEditorMessageBus.MESSAGE_TYPE.ASSERT:
+		MessageBus.MESSAGE_TYPE.ASSERT:
 			_severity_label.text = "ASSERT"
 			_message_label.add_color_override("font_color", Color(1, 0.094118, 0.321569))
 			_severity_label.add_color_override("font_color", Color(1, 0.094118, 0.321569))
-		LiveEditorMessageBus.MESSAGE_TYPE.ERROR:
+		MessageBus.MESSAGE_TYPE.ERROR:
 			_severity_label.text = "ERROR"
 			_message_label.add_color_override("font_color", Color(1, 0.094118, 0.321569))
 			_severity_label.add_color_override("font_color", Color(1, 0.094118, 0.321569))
-		LiveEditorMessageBus.MESSAGE_TYPE.WARNING:
+		MessageBus.MESSAGE_TYPE.WARNING:
 			_severity_label.text = "WARNING"
 			_message_label.add_color_override("font_color", Color(1, 0.960784, 0.25098))
 			_severity_label.add_color_override("font_color", Color(1, 0.960784, 0.25098))
@@ -70,6 +70,10 @@ func _update_visuals() -> void:
 			
 			_external_label.hide()
 			_message_explain_button.hide()
+
+	if message_code == -1:
+		_external_label.hide()
+		_message_explain_button.hide()
 
 
 func _location_row_gui_input(event: InputEvent) -> void:

@@ -14,6 +14,8 @@ extends Node2D
 const LINE_THICKNESS := 4.0
 const DEFAULT_COLOR := Color.white
 
+var line_draw_speed := 400.0
+
 var _points := []
 var _polygons := []
 var _current_offset := Vector2.ZERO
@@ -131,7 +133,7 @@ func _close_polygon() -> void:
 	if _points.empty():
 		return
 
-	var polygon := Polygon.new()
+	var polygon := Polygon.new(line_draw_speed)
 	# We want to test shapes being drawn at the correct position using the
 	# position property. It works differently from jump() which offsets the
 	# turtle from its position.
@@ -149,21 +151,22 @@ class Polygon:
 	extends Node2D
 
 	const LabelScene := preload("DrawingTurtleLabel.tscn")
-	var points := [] setget , get_points
+	var points := PoolVector2Array() setget , get_points
 	var draw_speed := 400.0
 	var line_2d := Line2D.new()
 	var _tween := Tween.new()
-	var _current_points := []
+	var _current_points := PoolVector2Array()
 	var _current_point_index := 0
 	var _total_distance := 0.0
 
 	signal animation_finished
 	signal line_end_moved(new_coordinates)
 
-	func _init() -> void:
+	func _init(line_draw_speed := 400.0) -> void:
 		add_child(_tween)
 		add_child(line_2d)
 		_tween.connect("tween_all_completed", self, "next")
+		draw_speed = line_draw_speed
 
 	func start_draw_animation() -> void:
 		var previous_point := points[0] as Vector2
@@ -204,7 +207,7 @@ class Polygon:
 		_tween.stop_all()
 
 	func _animate_point_position(point: Vector2) -> void:
-		var new_points := _current_points.duplicate()
+		var new_points := _current_points
 		new_points.push_back(point)
 		line_2d.points = new_points
 		emit_signal("line_end_moved", point + position)
@@ -230,5 +233,9 @@ class Polygon:
 		var rect := get_rect()
 		return (rect.position + rect.end) / 2.0 + position
 
-	func get_points() -> Array:
-		return points.duplicate()
+	func get_points() -> PoolVector2Array:
+		return points;
+		var copy := []
+		for point in points:
+			copy.push_back(point)
+		return PoolVector2Array(copy)

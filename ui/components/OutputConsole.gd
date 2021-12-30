@@ -8,8 +8,10 @@ const OutputConsoleErrorMessage := preload("res://ui/components/OutputConsoleErr
 const OutputConsoleErrorMessageScene := preload("res://ui/components/OutputConsoleErrorMessage.tscn")
 const OutputConsolePrintMessageScene := preload("res://ui/components/OutputConsolePrintMessage.tscn")
 
-onready var _scroll_container := $MarginContainer/ScrollContainer as ScrollContainer
-onready var _message_list := $MarginContainer/ScrollContainer/MarginContainer/MessageList as Control
+var _slice_properties: SliceProperties
+
+onready var _scroll_container := $MarginContainer/VBoxContainer/ScrollContainer as ScrollContainer
+onready var _message_list := $MarginContainer/VBoxContainer/ScrollContainer/MessageList as Control
 
 onready var _error_popup := $ErrorPopup as Control
 onready var _error_overlay_popup := $ErrorPopup/ErrorOverlayPopup as ErrorOverlayPopup
@@ -21,7 +23,11 @@ func _ready() -> void:
 	_error_popup.set_as_toplevel(true)
 	_error_overlay_popup.connect("hide", _error_popup, "hide")
 	
-	LiveEditorMessageBus.connect("print_request", self, "print_bus_message")
+	MessageBus.connect("print_request", self, "print_bus_message")
+
+
+func setup(slice_properties: SliceProperties) -> void:
+	_slice_properties = slice_properties
 
 
 # Adds a message related to a specific line in a specific file
@@ -32,9 +38,9 @@ func print_bus_message(
 		return
 	
 	if type in [
-		LiveEditorMessageBus.MESSAGE_TYPE.ASSERT,
-		LiveEditorMessageBus.MESSAGE_TYPE.ERROR,
-		LiveEditorMessageBus.MESSAGE_TYPE.WARNING
+		MessageBus.MESSAGE_TYPE.ASSERT,
+		MessageBus.MESSAGE_TYPE.ERROR,
+		MessageBus.MESSAGE_TYPE.WARNING
 	]:
 		print_error(type, text, file_name, line, character, code)
 		return
@@ -77,10 +83,9 @@ func print_error(type: int, text: String, file_name: String, line: int, characte
 
 	# We need to adjust the reported range to show the lines as the student sees them
 	# in the slice editor.
-	var slice_properties := LiveEditorState.current_slice
-	var show_lines_from := slice_properties.start_offset
-	var show_lines_to := slice_properties.end_offset
-	var character_offset := slice_properties.leading_spaces
+	var show_lines_from := _slice_properties.start_offset
+	var show_lines_to := _slice_properties.end_offset
+	var character_offset := _slice_properties.leading_spaces
 
 	var message_node := OutputConsoleErrorMessageScene.instance() as OutputConsoleErrorMessage
 	message_node.message_severity = type

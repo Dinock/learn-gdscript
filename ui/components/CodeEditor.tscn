@@ -22,6 +22,7 @@ script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+text = null
 
 [node name="Column" type="VBoxContainer" parent="."]
 margin_right = 1920.0
@@ -46,7 +47,6 @@ draw_tabs = true
 draw_spaces = true
 smooth_scrolling = true
 wrap_enabled = true
-caret_block_mode = true
 caret_blink = true
 script = ExtResource( 1 )
 
@@ -93,6 +93,7 @@ margin_left = 858.0
 margin_right = 1018.0
 margin_bottom = 63.0
 rect_min_size = Vector2( 160, 40 )
+toggle_mode = true
 text = "Pause"
 icon = ExtResource( 2 )
 
